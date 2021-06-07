@@ -1,0 +1,242 @@
+@charset "UTF-8";
+
+/* 共通部分 
+-----------------------*/
+html {
+    font-size: 100%;
+}
+body {
+    font-family: 'M PLUS 1p', sans-serif;
+    background-color: #fdfafa;
+    color: #7a7b82;
+}
+header {
+    background-color: #49d3e9;
+    padding: 20px 0;
+    margin-bottom: 50px;
+}
+a {
+    text-decoration: none;
+    color: #49d3e9;
+}
+.title {
+    font-family: 'Aclonica', sans-serif;
+    letter-spacing: 0.5rem;
+    text-indent: 0.5rem;
+    text-align: center;
+}
+.title a {
+    color: #ffffff;
+}
+.sub-title {
+    letter-spacing: 0.5rem;
+    text-indent: 0.5rem;
+    text-align: center;
+}
+.wrapper {
+    width: 1200px;
+    margin: 0 auto;
+}
+.form-area {
+    padding: 2% 5%;
+    margin-bottom: 10px;
+}
+.input-area {
+    margin-bottom: 25px;
+}
+.errors {
+    color: #df2ac6;
+    background-color: #f1d5ef;
+    list-style: none;
+    margin: 20px 0;
+    padding: 10px 20px;
+}
+
+/* フォーム
+-----------------------*/
+form {
+    margin-bottom: 15px;
+}
+label {
+    display: block;
+}
+input[type="date"],
+input[type="number"],
+input[type="text"] {
+    color: #7a7b82;
+    background-color: #e5eff7;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    transition: 700ms ease all;
+    border-radius: 5px;
+}
+input[type="date"]:focus,
+input[type="number"]:focus,
+input[type="text"]:focus {
+    outline: none;
+    border: none;
+    border-bottom: 3px solid #49d3e9;
+}
+.btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #FFFFFF;
+    padding: 10px 0;
+    letter-spacing: 0.2rem;
+    text-indent: 0.2rem;
+    cursor: pointer;
+    outline: none;
+    border-radius: 50px;
+}
+.edit-btn,
+.submit-btn {
+    background-color: #49d3e9;
+}
+.edit-btn:hover,
+.submit-btn:hover {
+    background-color: #4cbecf;
+    cursor: pointer;
+}
+.submit-btn {
+    margin-right: 10px;
+}
+.edit-btn {
+    margin-right: 10px;
+}
+.delete-btn {
+    background-color: #ee60ee;
+    margin-right: 10px;
+}
+.delete-btn:hover {
+    background-color: #d13ad1;
+}
+.return-btn {
+    background-color: #7a7b82;
+}
+.return-btn:hover {
+    background-color: #5c5d61;
+}
+
+/* HOME
+-----------------------*/
+.bt-list {
+    width: 100%;
+    border-collapse: separate; 
+    border: none;
+    border-spacing: 0px;
+}
+.bt-list tr {
+    height: 40px;
+}
+.bt-list tbody td {
+    text-align: center;
+}
+
+/* 上部ヘッダー */
+.bt-list thead th {
+    color: #FFF; 
+    font-weight: bold;
+    background-color:#49d3e9;
+}
+
+/* 上部ヘッダーの丸み */
+.bt-list thead th:first-child {
+    border-radius: 10px 0 0 0;
+}
+.bt-list thead th:last-child {
+    border-radius: 0 10px  0 0;
+}
+
+/* １行ずつ色変更 */
+.bt-list tr:nth-child(odd) td {
+    background-color: #FDFDFD; 
+}
+.bt-list tr:nth-child(even) td { 
+    background-color: #f5f5f5; 
+} 
+
+.fa-plus-circle {
+    color: #49d3e9;
+    font-size: 40px;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+}
+.fa-plus-circle:hover {
+    color: #4cbecf;
+    cursor: pointer;
+}
+
+/* 照会画面
+-----------------------*/
+.show-wrapper,
+.form-wrapper {
+    width: 700px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.show-data {
+    margin-bottom: 30px;
+}
+.show-data dt {
+    color: #7a7b82;
+}
+.show-data dd {
+    margin-bottom: 20px;
+    background-color: #e5eff7;
+    padding: 10px 0 10px 7px;
+    border-radius: 5px;
+}
+.btn-area {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* レスポンシブ対応
+-----------------------*/
+@media screen and (max-width: 1100px) {
+    .wrapper {
+        width: 1000px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .wrapper {
+        width: 900px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .wrapper {
+        width: 800px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .wrapper,
+    .show-wrapper,
+    .form-wrapper {
+        width: 600px;
+    }
+    .btn-area {
+        flex-flow: column;
+    }
+    .edit-btn,
+    .delete-btn,
+    .submit-btn {
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .wrapper,
+    .show-wrapper,
+    .form-wrapper {
+        width: 400px;
+    }
+}
