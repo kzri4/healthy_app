@@ -37,7 +37,7 @@ $bt = $stmt->fetch(PDO::FETCH_ASSOC);
 
         <div class="btn-area">
             <a href="edit.php?id=<?= h($bt['id']) ?>" class="btn edit-btn">EDIT</a>
-            <a href="" class="btn delete-btn">DELETE</a>
+            <a href="delete.php?id=<?= h($bt['id']) ?>" class="btn delete-btn">DELETE</a>
             <a href="index.php" class="btn return-btn">RETURN</a>
         </div>
     </div>
