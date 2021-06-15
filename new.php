@@ -7,6 +7,8 @@ $body_temperature = '';
 $memo = '';
 
 $errors = [];
+$errors_requireda = [];
+$errors_same = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $measurement_date = filter_input(INPUT_POST, 'measurement_date');

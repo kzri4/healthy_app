@@ -1,20 +1,12 @@
 <?php
 
 require_once __DIR__ . '/functions.php';
+
 $dbh = connectDb();
 
 $id = filter_input(INPUT_GET, 'id');
 
-$sql = <<< EOM
-SELECT * FROM body_temperatures
-    WHERE id = :id
-EOM;
-
-$stmt = $dbh->prepare($sql);
-$stmt->bindParam(':id', $id, PDO::PARAM_INT);
-$stmt->execute();
-
-$bt = $stmt->fetch(PDO::FETCH_ASSOC);
+$bt = findBtById($id);
 
 ?>
 

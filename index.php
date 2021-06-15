@@ -8,32 +8,15 @@ if (empty($ym)) {
     $ym = date('Ym');
 }
 
-$last_month = date('Ym', strtotime('first day of previous month' . substr_replace($ym, '-', 4, 0)));
-$next_month = date('Ym', strtotime('first day of next month' . substr_replace($ym, '-', 4, 0)));
+[$last_month, $next_month, $disp_ym] = calcBtRelatedYm($ym);
 
-$disp_ym = date('Y年m月', strtotime($ym . '01'));
-
-$dbh = connectDb();
-
-$sql = <<< EOM
-SELECT
-    * 
-FROM 
-    body_temperatures 
-WHERE
-    date_format(measurement_date, '%Y%m') = :ym
-ORDER BY
-    measurement_date
-EOM;
-
-$stmt = $dbh->prepare($sql);
-$stmt->bindParam(':ym', $ym, PDO::PARAM_STR);
-$stmt->execute();
-$bts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$bts = findBtbyYm($ym);
+[$json_days, $json_bts] = formatBtToJson($bts);
 
 ?>
 
 <!DOCTYPE html>
+
 <html lang="ja">
 
 <?php include_once __DIR__ . '/_head.html' ?>
@@ -47,26 +30,58 @@ $bts = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <span class="show-ym"><?= h($disp_ym) ?></span>
             <a href="index.php?ym=<?= h($next_month) ?>"><i class="fas fa-angle-right"></i></a>
         </section>
-        <table class="bt-list">
-            <thead>
-                <tr>
-                    <th>検温日</th>
-                    <th>体温</th>
-                    <th>メモ</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($bts as $bt) : ?>
-                    <tr>
-                        <td><a href="show.php?id=<?= h($bt['id']) ?>"><?= h($bt['measurement_date']) ?></a></td>
-                        <td><?= h($bt['body_temperature']) ?> ℃</td>
-                        <td><?= h($bt['memo']) ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+    
+        <div id="container"></div>
+
         <a href="new.php"><i class="fas fa-plus-circle"></i></a>
     </div>
+
+    <script language="JavaScript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const chart = Highcharts.chart('container', {
+                title: {
+                    text: ''
+                },
+
+                xAxis: {
+                    categories: <?= $json_days ?>
+                },
+
+                yAxis: {
+                    title: {
+                        text: '体温 (℃)'
+                    }
+                },
+                
+                tooltip: {
+                    valueSuffix: '℃'
+                },
+
+                plotoptiion: {
+                    series: {
+                        cursor: 'pointer',
+                        point: {
+                            events: {
+                                click: function() {
+                                    location.href = this.options.url;
+                                }
+                            }
+                        }
+                    }
+                },
+
+                series: [{
+                    name: '体温',
+                    data: <?= $json_bts ?>,
+                    color: '#49d3e9'
+                }],
+
+                credits: {
+                    enabled: false
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
