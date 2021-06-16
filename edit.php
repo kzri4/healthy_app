@@ -9,25 +9,15 @@ $body_temperature = '';
 $memo = '';
 
 $errors = [];
-
+$errors_required = [];
+$error_same = [];
 
 $id = filter_input(INPUT_GET, 'id');
 
-$sql = <<< EOM
-SELECT 
-    *
-FROM
-    body_temperatures
-WHERE
-    id = :id
-EOM;
-
-$stmt = $dbh->prepare($sql);
-$stmt->bindParam(':id', $id, PDO::PARAM_INT);
-$stmt->execute();
-$bt = $stmt->fetch(PDO::FETCH_ASSOC);
+$bt = findBtById($id);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
     $measurement_date = filter_input(INPUT_POST, 'measurement_date');
     $body_temperature = filter_input(INPUT_POST, 'body_temperature');
     $memo = filter_input(INPUT_POST, 'memo');
@@ -58,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($check_bt) {
             $errors[] = '入力された検温日のデータは既に存在します';
         }
+        $errors_same = validateSameMeasDate($measurement_date, $body_temperature);
     }
 
     if (empty($errors)) {

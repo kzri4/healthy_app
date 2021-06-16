@@ -11,12 +11,12 @@ if (empty($ym)) {
 [$last_month, $next_month, $disp_ym] = calcBtRelatedYm($ym);
 
 $bts = findBtbyYm($ym);
+
 [$json_days, $json_bts] = formatBtToJson($bts);
 
 ?>
 
 <!DOCTYPE html>
-
 <html lang="ja">
 
 <?php include_once __DIR__ . '/_head.html' ?>
@@ -25,14 +25,12 @@ $bts = findBtbyYm($ym);
     <?php include_once __DIR__ . '/_header.html' ?>
 
     <div class="wrapper">
-        <section class="serch-ym-area">
+        <section class="search-ym-area">
             <a href="index.php?ym=<?= h($last_month) ?>"><i class="fas fa-angle-left"></i></a>
             <span class="show-ym"><?= h($disp_ym) ?></span>
             <a href="index.php?ym=<?= h($next_month) ?>"><i class="fas fa-angle-right"></i></a>
         </section>
-    
         <div id="container"></div>
-
         <a href="new.php"><i class="fas fa-plus-circle"></i></a>
     </div>
 
@@ -42,22 +40,18 @@ $bts = findBtbyYm($ym);
                 title: {
                     text: ''
                 },
-
                 xAxis: {
                     categories: <?= $json_days ?>
                 },
-
                 yAxis: {
                     title: {
                         text: '体温 (℃)'
                     }
                 },
-                
                 tooltip: {
                     valueSuffix: '℃'
                 },
-
-                plotoptiion: {
+                plotOptions: {
                     series: {
                         cursor: 'pointer',
                         point: {
@@ -69,13 +63,11 @@ $bts = findBtbyYm($ym);
                         }
                     }
                 },
-
                 series: [{
                     name: '体温',
                     data: <?= $json_bts ?>,
                     color: '#49d3e9'
                 }],
-
                 credits: {
                     enabled: false
                 }
